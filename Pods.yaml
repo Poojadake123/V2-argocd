@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: ubuntu-apache-container
-        image: manasitdk/ubuntu_images:ubuntu-apache-1.0.2
+        image: manasitdk/ubuntu_images:ubuntu-apache-1.0.3
         ports:
         - containerPort: 80  # Assuming the web server is listening on port 80
 ---
