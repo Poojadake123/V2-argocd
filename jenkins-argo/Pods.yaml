@@ -19,6 +19,7 @@ spec:
       containers:
       - name: ubuntu-apache
         image: manasitdk/ubuntu_images:ubuntu-apache-1.0.3
+        ports:
         - containerPort: 80
 ---
 apiVersion: v1
