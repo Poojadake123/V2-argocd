@@ -3,9 +3,11 @@ kind: Deployment
 metadata:
   name: ubuntu-apache-deployment
   labels:
-    app: ubuntu-apache
+    app: ubuntu-apache               # Add a label for better identification
 spec:
-  replicas: 2
+  replicas: 1
+  strategy:
+    type: Recreate
   selector:
     matchLabels:
       app: ubuntu-apache
@@ -15,23 +17,20 @@ spec:
         app: ubuntu-apache
     spec:
       containers:
-      - name: ubuntu-apache-container
+      - name: ubuntu-apache
         image: manasitdk/ubuntu_images:ubuntu-apache-1.0.3
-        ports:
-        - containerPort: 80  # Assuming the web server is listening on port 80
+        - containerPort: 80
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: ubuntu-apache-service
-  labels:
-    app: ubuntu-apache
 spec:
   type: NodePort
   selector:
     app: ubuntu-apache
   ports:
-    - protocol: TCP
-      port: 80           # The port the service will use inside the cluster
-      targetPort: 80      # The port the container is exposing
-      nodePort: 32900     # NodePort for external access
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+    nodePort: 32900    # NodePort range: 30000-32767
